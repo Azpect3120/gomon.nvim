@@ -12,7 +12,7 @@ end
 --- @param buffnr integer: Buffer number
 --- @return integer: Window number
 function M.CreateFloat (buffnr)
-  local py, px = 8, 8
+  local py, px = 8, 16
   local width = vim.api.nvim_get_option_value("columns", {}) - (px * 2)
   local height = vim.api.nvim_get_option_value("lines", {}) - (py * 2)
 
