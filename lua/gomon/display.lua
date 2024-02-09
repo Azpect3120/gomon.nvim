@@ -16,7 +16,7 @@ function M.CreateFloat (buffnr)
   local width = vim.api.nvim_get_option_value("columns", {}) - (px * 2)
   local height = vim.api.nvim_get_option_value("lines", {}) - (py * 2)
 
-  return vim.api.nvim_open_win(buffnr, true, {
+  local winnr = vim.api.nvim_open_win(buffnr, true, {
     relative = "editor",
     style = "minimal",
     border = "rounded",
@@ -27,7 +27,13 @@ function M.CreateFloat (buffnr)
     title = "Result:",
     title_pos = "center",
   })
+
+  vim.api.nvim_set_option_value("number", "true", { win: winnr })
 end
 
 -- Export module
 return M
+
+--[[ vim.api.nvim_win_set_option(win, "wrap", false)
+vim.api.nvim_win_set_option(win, "number", false)
+vim.api.nvim_win_set_option(win, "cursorline", false) ]]
