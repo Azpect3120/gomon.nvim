@@ -13,8 +13,8 @@ end
 --- @return integer: Window number
 function M.CreateFloat (buffnr)
   local py, px = 8, 8
-  local width = vim.api.nvim_get_option_value("columns") - (px * 2)
-  local height = vim.api.nvim_get_option_value("lines") - (py * 2)
+  local width = vim.api.nvim_get_option_value("columns", {}) - (px * 2)
+  local height = vim.api.nvim_get_option_value("lines", {}) - (py * 2)
 
   return vim.api.nvim_open_win(buffnr, true, {
     relative = "editor",
