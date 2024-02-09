@@ -1,6 +1,6 @@
 " Title:        gomon.nvim
-" Description:  A plugin that provides a popup window to display keystrokes.
-" Last Change:  4 February 2024
+" Description:  A plugin that allows hot reload for your Go applications.
+" Last Change:  8 February 2024
 " Maintainer:   Azpect3120 <https://github.com/Azpect3120>
 
 " Prevents the plugin from being loaded multiple times. If the loaded
@@ -13,3 +13,4 @@ let g:loaded_gomon = 1
 
 " Exposes the plugin's functions for use as commands in Neovim.
 " command! -nargs=0 Keystrokes lua require("keystrokes").toggle()
+command! -nargs=0 Gomon lua require("gomon").toggle()
