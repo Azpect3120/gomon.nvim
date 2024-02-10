@@ -130,6 +130,13 @@ function M.restart()
     M._settings.jobs = watcher.stop_watcher(M._settings.bufnr)
   end
 
+  -- Update the settings with the most recent configuration
+  local cwd_config = config_menu.get_cwd_config()
+  if cwd_config ~= nil then
+    M._settings.pattern = cwd_config.pattern
+    M._settings.command = cwd_config.command
+  end
+
   -- Start the watcher
   watcher.start_watcher(M._settings.bufnr, M._settings)
 
