@@ -12,4 +12,11 @@ endif
 let g:loaded_gomon = 1
 
 " Exposes the plugin's functions for use as commands in Neovim.
-command! -nargs=+ Gomon lua require("gomon").action(<q-args>)
+command! -nargs=0 GomonStart lua require("gomon").start()
+command! -nargs=0 GomonStop lua require("gomon").stop()
+command! -nargs=0 GomonRestart lua require("gomon").restart()
+command! -nargs=0 GomonToggle lua require("gomon").toggle()
+command! -nargs=0 GomonHide lua require("gomon").hide()
+command! -nargs=0 GomonShow lua require("gomon").show()
+command! -nargs=0 GomonToggleDisplay lua require("gomon").toggle_display()
+command! -nargs=0 GomonConfig lua require("gomon")
