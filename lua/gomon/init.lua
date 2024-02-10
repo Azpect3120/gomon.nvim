@@ -125,10 +125,8 @@ end
 function M.toggle()
   -- Start or stop the watcher and update the settings
   if M._settings.started then
-    M._settings.started = false
     M.stop()
   else
-    M._settings.started = true
     M.start()
   end
 end
