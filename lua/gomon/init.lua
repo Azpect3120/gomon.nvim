@@ -31,13 +31,13 @@ function M.setup (config)
       border = config.window and config.window.border or "rounded",
 
       -- Wrap text in the output window
-      wrap = config.window and config.window.wrap or false,
+      wrap = (config.window and config.window.wrap) or false,
     },
     -- Open the output window on start
-    display_on_start = config.display_on_start or true,
+    display_on_start = (config.display_on_start or config.display_on_start == nil) and true,
 
     -- Close the output window on stop
-    close_on_stop = (config and config.close_on_stop) and true,
+    close_on_stop = (config.close_on_stop or config.close_on_stop == nil) and true,
   }
 
   -- Setup plugin default settings

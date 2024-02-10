@@ -25,7 +25,7 @@ function M.start_watcher (bufnr, settings)
     -- File pattern to watch
     pattern = settings.pattern,
     -- Description of the auto command
-    desc = "Gomon: Watch for file changes",
+    desc = "GoMon: Watch for file changes",
     -- Execute the callback function when event is triggered
     callback = function()
       -- Stop previous job if running from callers settings
@@ -83,7 +83,7 @@ function M.stop_watcher (bufnr)
   end
 
   -- Display message
-  display.update(bufnr, { "Gomon stopped..." })
+  display.update(bufnr, { "GoMon stopped..." })
 
   -- Return updated job settings to main file
   return M._settings.jobs
