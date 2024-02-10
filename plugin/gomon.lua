@@ -27,7 +27,7 @@ if not _G.myPluginLoaded then
       elseif arg == "toggle_display" then
         require("gomon").toggle_display()
       elseif arg == "config" then
-        require("gomon").config()
+        require("gomon").update_config()
       end
     end,
     {

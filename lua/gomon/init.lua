@@ -1,6 +1,7 @@
 -- Imports
 local watcher = require("gomon.watcher")
 local display = require("gomon.display")
+local config_menu = require("gomon.config")
 
 -- Module object
 local M = {}
@@ -175,6 +176,28 @@ function M.toggle_display()
     M.show()
   end
 end
+
+-- Opens the plugin's configuration window.
+function M.update_config()
+  -- If the plugin is not being displayed, display the output window
+  if not M._settings.output or M._settings.winnr == nil then
+    -- Show the output window
+    if M.config.window.style == "float" then
+      M._settings.winnr = display.create_float(M._settings.bufnr, M.config.window)
+    else
+      M._settings.winnr = display.create_split(M._settings.bufnr, M.config.window)
+    end
+    -- Update settings
+    M._settings.output = true
+  end
+  -- Now display config buffer
+  config_menu.open_config(M._settings.bufnr, M._settings.winnr, M._settings)
+
+  -- Update output settings
+  M._settings.output = false
+  M._settings.winnr = nil
+end
+
 
 -- Finally, return the module
 return M

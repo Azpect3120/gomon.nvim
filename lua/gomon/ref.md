@@ -101,3 +101,8 @@ end
         - etc
 - Window will be opened with the config written in and allow user to change it
 - Config will be saved and loaded from a file stored somewhere on the file system
+
+
+
+## Deps
+plenary

@@ -8,7 +8,7 @@ function M.create_buffer ()
   local bufnr = vim.api.nvim_create_buf(false, true)
 
   -- Set buffer options
-  vim.api.nvim_buf_set_name(bufnr, "GoMon Output")
+  vim.api.nvim_buf_set_name(bufnr, ".gomon_output.txt")
   vim.api.nvim_set_option_value("buftype", "nofile", { buf = bufnr })
   vim.api.nvim_set_option_value("swapfile", false, { buf = bufnr })
   vim.api.nvim_set_option_value("buflisted", false, { buf = bufnr })
