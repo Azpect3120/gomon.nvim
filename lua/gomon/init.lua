@@ -34,7 +34,6 @@ function M.setup (config)
       wrap = config.window and config.window.wrap or false,
     },
     -- Open the output window on start
-    -- (true and input) or true
     display_on_start = (config and config.display_on_start) and true,
 
     -- Close the output window on stop
