@@ -34,10 +34,11 @@ function M.setup (config)
       wrap = config.window and config.window.wrap or false,
     },
     -- Open the output window on start
-    display_on_start = config.display_on_start or true,
+    -- (true and input) or true
+    display_on_start = (config and config.display_on_start) and true,
 
     -- Close the output window on stop
-    close_on_stop = config.close_on_stop or true,
+    close_on_stop = config and config.close_on_stop and true,
   }
 
   -- Setup plugin default settings
@@ -70,21 +71,25 @@ function M.start()
   -- Start the watcher
   watcher.start_watcher(M._settings.bufnr, M._settings)
 
-  -- Display the output window
-  if M.config.display_on_start then
+  -- Display the output window if its not already displaying
+  if M.config.display_on_start and not M._settings.output then
     if M.config.window.style == "float" then
       M._settings.winnr = display.create_float(M._settings.bufnr, M.config.window)
     else
       M._settings.winnr = display.create_split(M._settings.bufnr, M.config.window)
     end
+    -- Update output settings if being displayed
+    M._settings.output = true
+  else
+    -- Update output settings if not being displayed
+    M._settings.output = false
   end
 
   -- Display startup message
   display.update(M._settings.bufnr, { "GoMon started..." })
 
-  -- Update started and output setting
+  -- Update started settings
   M._settings.started = true
-  M._settings.output = true
 end
 
 -- Stop the plugin's watcher.
@@ -99,14 +104,16 @@ function M.stop()
   -- Stop the watcher
   M._settings.jobs = watcher.stop_watcher(M._settings.bufnr)
 
-  -- Hide the output window
-  if M.config.close_on_stop then
+  -- Hide the output window if its being displayed and update settings
+  if M.config.close_on_stop and M._settings.output then
     display.hide_window(M._settings.winnr)
+    M._settings.output = false
+  else
+    M._settings.output = true
   end
 
   -- Update started and output setting
   M._settings.started = false
-  M._settings.output = false
 end
 
 -- Restart the plugin's watcher.
@@ -147,12 +154,10 @@ function M.show()
   -- Show output window and update settings if currently hidden and is running
   if not M._settings.output and M._settings.started then
     -- Show the output window
-    if M.config.display_on_start then
-      if M.config.window.style == "float" then
-        M._settings.winnr = display.create_float(M._settings.bufnr, M.config.window)
-      else
-        M._settings.winnr = display.create_split(M._settings.bufnr, M.config.window)
-      end
+    if M.config.window.style == "float" then
+      M._settings.winnr = display.create_float(M._settings.bufnr, M.config.window)
+    else
+      M._settings.winnr = display.create_split(M._settings.bufnr, M.config.window)
     end
     -- Update settings
     M._settings.output = true
