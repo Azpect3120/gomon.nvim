@@ -1,7 +1,6 @@
 -- Imports
 local watcher = require("gomon.watcher")
 local display = require("gomon.display")
-local cmd = require("gomon.cmd")
 
 -- Module object
 local M = {}
