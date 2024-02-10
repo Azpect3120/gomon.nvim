@@ -34,10 +34,10 @@ function M.setup (config)
       wrap = config.window and config.window.wrap or false,
     },
     -- Open the output window on start
-    display_on_start = (config and config.display_on_start) and true,
+    display_on_start = config.display_on_start or true,
 
     -- Close the output window on stop
-    close_on_stop = config and config.close_on_stop and true,
+    close_on_stop = (config and config.close_on_stop) and true,
   }
 
   -- Setup plugin default settings
@@ -117,8 +117,10 @@ end
 
 -- Restart the plugin's watcher.
 function M.restart()
-  -- Stop the watcher
-  M._settings.jobs = watcher.stop_watcher(M._settings.bufnr)
+  -- Stop the watcher if it is running
+  if M._settings.started then
+    M._settings.jobs = watcher.stop_watcher(M._settings.bufnr)
+  end
 
   -- Start the watcher
   watcher.start_watcher(M._settings.bufnr, M._settings)
