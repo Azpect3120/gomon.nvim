@@ -39,29 +39,8 @@ end
 --- @param cwd string: The current working directory
 --- @param lines table: The lines to update the system configuration with
 local function update_sys_config (cwd, lines)
-  -- Create path to data file
-  local data_path = Path:new(string.format("%s/gomon.json", vim.fn.stdpath("data")))
-
-  -- If the file does not exist, create it with blank data
-  if not data_path:exists() then
-    data_path:write(vim.json.encode({}), "w")
-  end
-
-  -- Read the data from the file
-  local out_data = data_path:read()
-
-  -- Again, ensure file exists and if not 
-  -- create it with blank data and re-read
-  if not out_data or out_data == "" then
-    data_path:write(vim.json.encode({}), "w")
-    out_data = data_path:read()
-  end
-
-  -- Decode data from JSON to create a Lua table 
-  -- which contains the previous system configuration
-  local config = vim.json.decode(out_data)
-
-  print(vim.inspect(config))
+  -- Use the api function to get the entire system configuration
+  local config = M.get_full_config()
 
   -- Update the configuration with the new settings
   if config[cwd] then
@@ -75,7 +54,7 @@ local function update_sys_config (cwd, lines)
   end
 
   -- Write the new configuration to the data file
-  Path:new(data_path):write(vim.json.encode(config), "w")
+  Path:new(Path:new(string.format("%s/gomon.json", vim.fn.stdpath("data")))):write(vim.json.encode(config), "w")
 end
 
 --- Enables the configuration buffer to be written to.
@@ -151,6 +130,44 @@ function M.open_config(bufnr, winnr, settings)
   vim.api.nvim_set_current_win(winnr)
 end
 
+--- Get the full configuration for the system.
+--- @return table: The full configuration for the system
+function M.get_full_config()
+  -- Create path to data file
+  local data_path = Path:new(string.format("%s/gomon.json", vim.fn.stdpath("data")))
+
+  -- If the file does not exist, create it with blank data
+  if not data_path:exists() then
+    data_path:write(vim.json.encode({}), "w")
+  end
+
+  -- Read the data from the file
+  local out_data = data_path:read()
+
+  -- Again, ensure file exists and if not 
+  -- create it with blank data and re-read
+  if not out_data or out_data == "" then
+    data_path:write(vim.json.encode({}), "w")
+    out_data = data_path:read()
+  end
+
+  -- Decode data from JSON to create a Lua table 
+  -- which contains the previous system configuration
+  return vim.json.decode(out_data)
+end
+
+--- Get the configuration for the current working directory.
+--- @return table: The configuration for the current working directory
+function M.get_cwd_config()
+  -- Get the current working directory
+  local cwd = vim.fn.getcwd() or "~"
+
+  -- Get the full system configuration
+  local config = M.get_full_config()
+
+  -- Return the configuration for the current working directory
+  return config[cwd]
+end
 
 -- Export module
 return M

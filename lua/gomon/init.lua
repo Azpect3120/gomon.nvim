@@ -44,7 +44,7 @@ function M.setup (config)
   -- Setup plugin default settings
   M._settings = {
     pattern = { "*.go" },
-    command = { "go", "run", "./cmd/fbla/main.go" },
+    command = { "go", "run", "./main.go" },
     jobs = {
       running = {
         -- id = nil,
@@ -67,6 +67,11 @@ function M.start()
   if M._settings.started then
     return
   end
+
+  -- Update the settings with the most recent configuration
+  local cwd_config = config_menu.get_cwd_config()
+  M._settings.pattern = cwd_config.pattern
+  M._settings.command = cwd_config.command
 
   -- Start the watcher
   watcher.start_watcher(M._settings.bufnr, M._settings)
@@ -179,6 +184,12 @@ end
 
 -- Opens the plugin's configuration window.
 function M.update_config()
+  -- Update the settings with the most recent configuration
+  -- to ensure the configuration buffer is up to date
+  local cwd_config = config_menu.get_cwd_config()
+  M._settings.pattern = cwd_config.pattern
+  M._settings.command = cwd_config.command
+
   -- If the plugin is not being displayed, display the output window
   if not M._settings.output or M._settings.winnr == nil then
     -- Show the output window
