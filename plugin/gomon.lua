@@ -28,12 +28,16 @@ if not _G.myPluginLoaded then
         require("gomon").toggle_display()
       elseif arg == "config" then
         require("gomon").update_config()
-      end
+      elseif arg == "clear_config" then
+        require("gomon").clear_config()
+      elseif arg == "reset" then
+        require("gomon").reset()
+     end
     end,
     {
       nargs = 1,
       complete = function (_, _, _)
-        return { "start", "stop", "restart", "toggle", "hide", "show", "toggle_display", "config" }
+        return { "start", "stop", "restart", "toggle", "hide", "show", "toggle_display", "config", "clear_config", "reset" }
       end
     }
   )

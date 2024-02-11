@@ -169,5 +169,28 @@ function M.get_cwd_config()
   return config[cwd]
 end
 
+--- Reset the configuration for the current working directory.
+function M.clear_cwd_config()
+  -- Get the current working directory
+  local cwd = vim.fn.getcwd() or "~"
+
+  -- Get the full system configuration
+  local config = M.get_full_config()
+
+  -- Update the configuration with the new settings
+  if config[cwd] then
+    config[cwd] = nil
+  end
+
+  -- Write the new configuration to the data file
+  Path:new(Path:new(string.format("%s/gomon.json", vim.fn.stdpath("data")))):write(vim.json.encode(config), "w")
+end
+
+--- Reset the configuration for the entire system.
+function M.reset_config()
+  -- Write the new configuration to the data file
+  Path:new(Path:new(string.format("%s/gomon.json", vim.fn.stdpath("data")))):write(vim.json.encode({}), "w")
+end
+
 -- Export module
 return M

@@ -220,6 +220,24 @@ function M.update_config()
   M._settings.winnr = nil
 end
 
+-- Clears the plugin's configuration for the current working directory.
+function M.clear_config()
+  -- Clear the configuration for the current working directory
+  config_menu.clear_cwd_config()
+
+  -- Print message
+  print("GoMon: Configuration cleared for current working directory. Restart the plugin to apply changes.")
+end
+
+-- Resets the plugin's system configuration.
+function M.reset()
+  -- Reset the system configuration
+  config_menu.reset_config()
+
+  -- Print message
+  print("GoMon: System configuration reset. Restart the plugin to apply changes.")
+end
+
 
 -- Finally, return the module
 return M

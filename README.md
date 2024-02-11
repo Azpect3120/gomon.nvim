@@ -133,6 +133,10 @@ Any changes to this buffer will be saved to the system when the file is written,
 The only lines that should be touched in the config will are the `Pattern: ...` and `Command: ...` lines, anything else will be ignored. 
 Once you are happy with the changes made in the config window, write the file with `:w` and it will be saved to the system. The 
 watcher will require a restart with `:Gomon restart` or to be started for the first time with `:Gomon start` to enable the new changes!
+- `:Gomon clear_config` will clear the config for the current working directory from the system data file. The changes will not be in 
+effect until the watcher is restarted with `:Gomon restart` or started for the first time with `:Gomon start`
+- `:Gomon reset` will reset the entire system config back to the default config. The changes will not be in effect until the watcher 
+is restarted with `:Gomon restart` or started for the first time with `:Gomon start`
 
 **Default Configuration:**
 ```txt
@@ -151,6 +155,8 @@ GoMon Configuration:
 Pattern: *.go *.tmpl
 Command: go run ./cmd/go-app/main.go
 ```
+
+
 
 
 ## ⟳ API
@@ -201,6 +207,13 @@ gomon.toggle_display()
 -- Watcher will need to be restarted to run with updated config
 gomon.update_config()
 
+-- Clears the config for the current working directory
+-- Changes will not in affect until the watcher is restarted
+gomon.clear_config()
+
+-- Resets the entire system config back to the default config
+-- Changes will not in affect until the watcher is restarted
+gomon.reset()
 ```
 
 ### Configuration
