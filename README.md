@@ -4,7 +4,7 @@
 ##### Hot reloading for your GoLang applciations built right into your editor.
 
 [![Lua](https://img.shields.io/badge/Lua-blue.svg?style=for-the-badge&logo=lua)](http://www.lua.org)
-[![Neovim](https://img.shields.io/badge/Neovim%200.9+-purple.svg?style=for-the-badge&logo=neovim)](https://neovim.io)
+[![Neovim](https://img.shields.io/badge/Neovim%200.8+-purple.svg?style=for-the-badge&logo=neovim)](https://neovim.io)
 
 <img alt="Golang Logo" height="120" src="./assets/golang.svg.png" style="margin: 40px;" />
 </div>
