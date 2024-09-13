@@ -18,6 +18,7 @@
 - [Usage](#-Usage)
 - [API](#-API)
     - [Configuration](#Configuration)
+- [Change Log](#-Change-Log)
 - [Contribution](#-Contribution)
 - [License](#-License)
 
@@ -145,7 +146,7 @@ GoMon Configuration:
 Pattern: *.go
 Command: go run ./main.go
 ```
-- `Pattern` should contain a list of file name patterns split with spaces
+- `Pattern` should contain a list of file name patterns split with spaces (not commas)
 - `Command` should contain the command run by the watcher when a change is detected
 
 **Example Configuration:**
@@ -251,6 +252,15 @@ return {
     end
 }
 ```
+
+## ⟳ Change Log
+All notable changes to this project will be documented in this section.
+
+### [1.0.1] - 2024-10-12
+
+- Updated the config parser to not display commas when viewing the config.
+- This was causing issues when changing the config and saving it, the 
+  commas would be saved to the file and cause issues when the file was read back in.
 
 ## ⟳ Contribution
 Contributions are welcome! If you'd like to contribute to this project, please follow these steps:

@@ -116,7 +116,7 @@ function M.open_config(bufnr, winnr, settings)
   display.update(bufnr, {
     "GoMon Configuration:",
     "---------------------",
-    "Pattern: " .. table.concat(settings.pattern, ", "),
+    "Pattern: " .. table.concat(settings.pattern, " "),
     "Command: " .. table.concat(settings.command, " "),
   })
 
